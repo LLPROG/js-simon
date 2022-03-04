@@ -2,9 +2,6 @@
 
 Descrizione:
 
-Da lì parte un timer di 30 secondi. (Cioè lasciate i numeri visibili per 30 secondi allo scadere dei quali li nascondete)
-Dopo aver nascosto i numeri chiedete all'utente (con dei prompt) di inserirli in ordine, uno alla volta.
-
 Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 
 Consigli del giorno:
@@ -31,7 +28,7 @@ while (i < 5) {
     let randomNumber = parseInt(randomNumFunction(50, 1));
 
     if(!arrNumber.includes(randomNumber)) {
-        contentNumber.append(randomNumber++ +'  '+"\u00A0"+"\u00A0")
+        contentNumber.append(randomNumber++ +"\u00A0"+"\u00A0")
         arrNumber.push(randomNumber)
         i++
     }
@@ -39,4 +36,33 @@ while (i < 5) {
 
 function randomNumFunction (max, min) {
     return number = Math.floor(Math.random() * (max - min) + min);
+}
+
+/*
+
+Da lì parte un timer di 30 secondi. (Cioè lasciate i numeri visibili per 30 secondi allo scadere dei quali li nascondete)
+Dopo aver nascosto i numeri chiedete all'utente (con dei prompt) di inserirli in ordine, uno alla volta.
+
+*/
+
+
+
+let conteggio = 10;
+let intervallo = 1000;
+
+let myInterval = setInterval(stampaConteggio, intervallo);
+
+function stampaConteggio() {
+
+    if (conteggio !== 0) {
+        timer.innerHTML = conteggio + 's'
+        conteggio--;
+
+    } else {
+        contentNumber.innerHTML = '';
+        timer.innerHTML ='GO';
+
+        clearInterval(myInterval);
+    }
+   
 }
