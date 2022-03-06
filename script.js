@@ -12,10 +12,10 @@ const inputGroup = document.querySelector('.input-group');
 
 //// Visualizzare in pagina 5 numeri casuali.
 
-let arrNumberComputer = [];
-let i = 0;
+let arrNumberComputer = [];   
 
 //// random number contentNUmber append
+let i = 0;
 while (i < 5) {
 
     let randomNumber = parseInt(randomNumFunction(99, 1));
@@ -26,8 +26,10 @@ while (i < 5) {
         i++
     }
 }
+//>
 
-console.log(arrNumberComputer);
+console.log(arrNumberComputer);  ///// console log arr number computer;
+
 //// random function
 function randomNumFunction (max, min) {
     return number = Math.floor(Math.random() * (max - min) + min);
@@ -35,7 +37,7 @@ function randomNumFunction (max, min) {
 
 /*
 
-Da lì parte un timer di 30 secondi. (Cioè lasciate i numeri visibili per 30 secondi allo scadere dei quali li nascondete)
+   Da lì parte un timer di 30 secondi. (Cioè lasciate i numeri visibili per 30 secondi allo scadere dei quali li nascondete)
 
 */
 
@@ -44,16 +46,11 @@ let conteggio1 = 5; ///// 10
 let conteggio2 = 5 + 2;////12
 let intervallo = 1000;
 
-
 //// arrey userinput number
 let arrNumberUser = [];
 
-// equality
-// function arraysEqual(a1,a2) {
-//     return JSON.stringify(a1)==JSON.stringify(a2);
-// }
 
-//// conteggio 10s + cambio a user input
+//// TIMEOUT 10s + cambio a USER INPUT
 function stampaConteggio() {
 
     if (conteggio1 !== 0) {
@@ -62,13 +59,18 @@ function stampaConteggio() {
 
     } else {
 
-        hideContent.innerHTML = '';
+        // hideContent.innerHTML = '';
         timer.innerHTML ='GO';
         hide.classList.add('show');
+        hideContent.classList.add('hide');
+
         clearInterval(myInterval);
     }
    
 }
+
+let myInterval = setInterval(stampaConteggio, intervallo);
+
 
 /*
 
@@ -76,7 +78,9 @@ Dopo aver nascosto i numeri chiedete all'utente (con dei prompt) di inserirli in
 
 */
 
-//// stampa risultato  with promtcon prompt
+
+
+//// stampa risultato  con PROMPT INPUT
 /*
 
 let textResult = document.querySelector('.text');
@@ -107,43 +111,73 @@ let promptInterval = setTimeout(() => {
 
 */
 
-///// stampa risultato con input
+
+
+
+///// stampa risultato con USER INPUT
 
 let textScore = document.querySelector('.text-score');
 let correctNumberText = document.querySelector('.correct-number-text');
 let numberUser = document.querySelector('.input-goroup input');
 
-let myInterval = setInterval(stampaConteggio, intervallo);
 
-btnSend.addEventListener('click', () => {
+//// press buttom function 
 
-    timer.innerHTML ='';
-    hide.classList.remove('show');
-    hide.classList.add('hide');
+btnSend.addEventListener('click', push);
+
+/// enter key
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        // console.log(e.key);
+       push();
+    }
+});
 
 
+//// push() 
+
+function push() {
+    
     let correctNumber = [];
 
     ////push numeri dell userInput in un arrey
     for (let i =0;i < 5; i++) {
+
         arrNumberUser.push(parseInt(inputGroup.children[i].value));  
-        console.log(arrNumberUser);
+
         if (arrNumberUser[i] == arrNumberComputer[i]) {
             correctNumber.push(arrNumberUser[i]);
-            console.log(correctNumber);
         }
     }
 
-    /// stampa numeri e nascondi il resto
+    console.log(arrNumberUser);
+
+    /// stampa numeri e nascondi USER INPUT
     for (let i = 0; i < correctNumber.length; i++) {
         resultNumber.append(correctNumber[i] +"\u00A0"+"\u00A0");
     }
 
 
-    correctNumberText.append('numeri corretti');
-    textScore.innerHTML = `Il tuo punteggio é: ${correctNumber.length}`; 
+    ///action
 
-});
+    if (correctNumber.length == 0) {
+        textScore.innerHTML = 'devi allenare la tua memoria';
+        resultNumber.append('x');
+        correctNumberText.append('non hai indovinato nessun numero');
+        hide.classList.remove('show');
+
+    } else {
+        timer.innerHTML ='';
+        hide.classList.remove('show');
+        correctNumberText.append('Numeri corretti:');
+        textScore.innerHTML = `Il tuo punteggio é: ${correctNumber.length}`; 
+    }
+    
+
+
+
+
+}
 
 
 
