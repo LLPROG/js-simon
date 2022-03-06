@@ -109,13 +109,18 @@ let promptInterval = setTimeout(() => {
 
 ///// stampa risultato con input
 
-const textScore = document.querySelector('.text-score');
-const correctNumberText = document.querySelector('.correct-number-text');
-const numberUser = document.querySelector('.input-goroup input');
+let textScore = document.querySelector('.text-score');
+let correctNumberText = document.querySelector('.correct-number-text');
+let numberUser = document.querySelector('.input-goroup input');
 
 let myInterval = setInterval(stampaConteggio, intervallo);
 
 btnSend.addEventListener('click', () => {
+
+    timer.innerHTML ='';
+    hide.classList.remove('show');
+    hide.classList.add('hide');
+
 
     let correctNumber = [];
 
@@ -132,14 +137,10 @@ btnSend.addEventListener('click', () => {
     /// stampa numeri e nascondi il resto
     for (let i = 0; i < correctNumber.length; i++) {
         resultNumber.append(correctNumber[i] +"\u00A0"+"\u00A0");
-        timer.innerHTML ='';
-        hide.classList.remove('show');
-        hide.classList.add('hide');
     }
 
+
     correctNumberText.append('numeri corretti');
-
-
     textScore.innerHTML = `Il tuo punteggio é: ${correctNumber.length}`; 
 
 });
